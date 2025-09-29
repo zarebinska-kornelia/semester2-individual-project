@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<H1>WELCOME IN GLONOJAD CAFÉ</H1>
+
+<img id="main_photo" src="{{ url_for('static', filename='images/photo.jpg') }}" alt="Café Photo" />
+
+<br><button class="main-btn"> ORDER NOW! </button>
+
+{% endblock %}

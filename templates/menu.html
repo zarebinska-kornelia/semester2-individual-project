@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="menu-page-container">
+    <div class="menu-container">
+        {% for item in menu_items %}
+        <div class="menu-item">
+            <img src="{{ item[3] }}" alt="{{ item[1] }}" class="menu-photo" />
+            <div class="menu-details">
+                <h3>{{ item[1] }}</h3>
+                <p>€{{ item[2] }}</p>
+            </div>
+            <button class="add-to-basket" onclick="addToBasket({{ item[0] }})">+</button>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="basket-section">
+        <img id="basket-photo" src="{{ url_for('static', filename='images/cart.png') }}" alt="cart photo" />
+        <h1>BASKET</h1>
+        <ul id="basket-list">
+            
+        </ul>
+        <p id="total-price">Total: €0</p>
+        {% if 'user_id' in session %}
+            <button id="checkout-btn" onclick="checkout()">Checkout</button>
+        {% else %}
+            <p>Please <a href="{{ url_for('login') }}">log in</a> to checkout.</p>
+        {% endif %}
+    </div>
+    
+</div>
+
+<script>
+    function addToBasket(itemId) {
+        {% if 'user_id' not in session %}
+            alert('You need to log in to add items to your basket.');
+            return;
+        {% endif %}
+        fetch('/add_to_basket', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ item_id: itemId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const basketList = document.getElementById('basket-list');
+                const newItem = document.createElement('li');
+                newItem.textContent = data.item_name + " - €" + data.item_price;
+                basketList.appendChild(newItem);
+
+                const totalPriceElem = document.getElementById('total-price');
+                const currentTotal = parseFloat(totalPriceElem.textContent.replace('Total: €', '')) || 0;
+                totalPriceElem.textContent = `Total: €${(currentTotal + parseFloat(data.item_price)).toFixed(2)}`;
+
+                alert(data.message);
+            } else {
+                alert('Failed to add item to the basket');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+<script>
+    function checkout() {
+        fetch('/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Checkout successful!");
+                // Clear basket UI
+                document.getElementById('basket-list').innerHTML = "";
+                document.getElementById('total-price').textContent = "Total: €0";
+            } else {
+                alert(data.message || "Checkout failed.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+{% endblock %}

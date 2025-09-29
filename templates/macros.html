@@ -1,0 +1,25 @@
+{% macro LightOrDarkMode(element) %}
+    <script>
+        function toggleDarkMode() {
+            const body = document.querySelector('{{ element }}');
+            const isDarkMode = body.classList.toggle('dark-mode');
+            const icon = document.getElementById('dark-mode-icon');
+            
+            // Toggle icon 
+            icon.textContent = isDarkMode ? '🌙' : '☀️';
+
+            // store mode in localStorage
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        // Check local storage 
+        window.onload = function() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+            if (isDarkMode) {
+                document.querySelector('{{ element }}').classList.add('dark-mode');
+                document.getElementById('dark-mode-icon').textContent = '🌙';
+            }
+        }
+    </script>
+    <span id="dark-mode-icon" onclick="toggleDarkMode()">☀️</span>
+{% endmacro %}

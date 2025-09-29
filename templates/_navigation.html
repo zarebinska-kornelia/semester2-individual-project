@@ -1,0 +1,21 @@
+<nav>
+    <div class="nav-section left">
+        <a href="{{ url_for('menu') }}">MENU</a>
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('orders') }}">ORDERS</a>
+        {% endif %}
+    </div>
+    <div class="nav-logo">
+        <img src="{{ url_for('static', filename='images/café_logo.png') }}" alt="Café Logo" />
+    </div>
+    <div class="nav-section right">
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('logout') }}" class="login-btn">LOG OUT</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="login-btn">LOG IN</a>
+        {% endif %}
+        <span id="dark-mode-toggle">
+            {{ macros.LightOrDarkMode("body") }}
+        </span>
+    </div>
+</nav>

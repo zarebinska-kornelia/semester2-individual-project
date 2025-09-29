@@ -1,0 +1,13 @@
+id,name,description,price,image_url
+1,Cappuccino,A hot espresso with steamed milk foam.,3.5,static/images/cappuccino.png
+2,Latte,Rich espresso with steamed milk.,3.8,static/images/latte.png
+3,Croissant,Flaky French pastry.,2.2,static/images/croissant.png
+4,Cappuccino,A hot espresso with steamed milk foam.,3.5,static/images/cappuccino.png
+5,Latte,Rich espresso with steamed milk.,3.8,static/images/latte.png
+6,Croissant,Flaky French pastry.,2.2,static/images/croissant.png
+7,Cappuccino,A hot espresso with steamed milk foam.,3.5,static/images/cappuccino.png
+8,Latte,Rich espresso with steamed milk.,3.8,static/images/latte.png
+9,Croissant,Flaky French pastry.,2.2,static/images/croissant.png
+10,Cappuccino,A hot espresso with steamed milk foam.,3.5,static/images/cappuccino.png
+11,Latte,Rich espresso with steamed milk.,3.8,static/images/latte.png
+12,Croissant,Flaky French pastry.,2.2,static/images/croissant.png
